@@ -20,6 +20,10 @@ class AuthService {
     console.log(`Auth service: Usuário logado com sucesso. Token: ${token}`);
     return token;
   }
+
+  validateToken(token) {
+    return this.sessions[token] || null;
+  }
 }
 
 module.exports = AuthService;
