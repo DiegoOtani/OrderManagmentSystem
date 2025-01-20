@@ -13,3 +13,19 @@ const authService = new AuthService();
 const catalogServic = new CatalogService();
 const orderService = new OrderService();
 const paymentService = new PaymentService();
+
+console.log("Bem vindo ao sistema de gerenciamento de pedidos!");
+
+rl.question("Informe o seu usuário: ", (username) => {
+  rl.question("Informe a sua senha: ", (password) => {
+    const token = authService.login(username, password);
+    if(!token) {
+      console.log("Usuário ou senha inválidos. Encerrando sessão.");
+      rl.close();
+      return;
+    }
+
+    const user = authService.validateToken(token);
+    console.log("Login realizado com sucesso! \n");
+  })
+})
