@@ -10,7 +10,7 @@ const rl = readline.createInterface({
 });
 
 const authService = new AuthService();
-const catalogServic = new CatalogService();
+const catalogService = new CatalogService();
 const orderService = new OrderService();
 const paymentService = new PaymentService();
 
@@ -27,5 +27,24 @@ rl.question("Informe o seu usuário: ", (username) => {
 
     const user = authService.validateToken(token);
     console.log("Login realizado com sucesso! \n");
+
+    console.log("Produtos disponíveis:");
+    const products = catalogService.getProducts();
+    console.log(products);
+
+    rl.question("Informe o ID do produto que deseja comprar: ",(productId) => {
+      rl.question("Informe a quantidade que deseja comprar:", (quantity) => {
+        
+        if(!catalogService.checkStock(parseInt(productId), parseInt(quantity))) {
+          console.log("Estoque insuficiente. Finalizando pedido.");
+          rl.close();
+          return;
+        }
+
+        const updatedProduct = catalogService.reduceStock(parseInt(productId), parseInt(quantity));
+        console.log("\nInformações do produto escolhido:");
+        console.log(updatedProduct);
+      })
+    })
   })
 })
