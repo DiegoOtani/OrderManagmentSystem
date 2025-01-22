@@ -10,6 +10,23 @@ class CatalogService {
     console.log("CatalogService: Retornando lista de produtos.");
     return this.products;
   }
+
+  checkStock(productId, quantity) {
+    const product = this.products.find(prod => prod.id === productId);
+    
+    if(!product) {
+      console.log("CatalogService: Produto não encontrado.");
+      return false;
+    }
+
+    if(product.stock < quantity) {
+      console.log("CatalogService: Estoque insuficiente.");
+      return false;
+    }
+
+    console.log("CatalogService: Estoque disponível.");
+    return true;
+  }
 }
 
 module.exports = CatalogService;
