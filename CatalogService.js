@@ -35,6 +35,7 @@ class CatalogService {
 
     product.stock -= quantity;
     console.log("CatalogService: Estoque atualizado.");
+    return { name: product.name, price: product.price };
   }
 }
 
