@@ -27,6 +27,15 @@ class CatalogService {
     console.log("CatalogService: Estoque disponível.");
     return true;
   }
+
+  reduceStock(productId, quantity) {
+    const product = this.products.find(prod => prod.id === productId);
+    
+    if(!product) return console.log("CatalogService: Produto não encontrado.");
+
+    product.stock -= quantity;
+    console.log("CatalogService: Estoque atualizado.");
+  }
 }
 
 module.exports = CatalogService;
